@@ -1,6 +1,14 @@
 function(set_project_warnings project_name)
   option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors" TRUE)
 
+  set(MSVC_WARNINGS
+      /W4 # Baseline reasonable warnings
+      /experimental:external
+      /external:anglebrackets # treat all headers included via #include <> (as
+                              # opposed to #include "") as external headers
+      /external:W0 # Disable warnings for external headers
+  )
+
   set(CLANG_WARNINGS
       -Wall
       -Wshadow # warn the user if a variable declaration shadows one from a

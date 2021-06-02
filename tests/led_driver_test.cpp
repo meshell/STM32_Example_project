@@ -1,7 +1,9 @@
 extern "C"
 {
+    #include "led_driver.h"
     // #includes for things with C linkage
 }
+
 
 // #includes for things with C++ linkage
 
@@ -19,7 +21,9 @@ void setup()
 
 };
 
-TEST(LED_Driver, Dummy)
+TEST(LED_Driver, Led_off_after_create)
 {
-  CHECK(false);
+  uint16_t virtual_leds = 0xffff;
+  LedDriver_Create(&virtual_leds);
+  CHECK_EQUAL(0, virtual_leds);     
 }

@@ -6,27 +6,7 @@ project(
   DESCRIPTION "STM32 example project"
   LANGUAGES C ASM)
 
-include(stm32l476)
-
-
 option(ENABLE_TESTING "Enable Test Builds" ON)
-
-include(StandardCProjectSettings)
-include(PreventInSourceBuilds)
-
-# Link this 'library' to set the c++ standard / compile-time options requested
-add_library(bsp_project_options INTERFACE)
-add_library(stm32_bsp::compile_options ALIAS bsp_project_options)
-
-target_compile_features(bsp_project_options INTERFACE c_std_99)
-
-# Link this 'library' to use the warnings specified in CompilerWarnings.cmake
-add_library(bsp_project_warnings INTERFACE)
-add_library(stm32_bsp::compile_warnings ALIAS bsp_project_warnings)
-
-# standard compiler warnings
-include(CCompilerWarnings)
-set_project_warnings(bsp_project_warnings)
 
 add_library(stm32_bsp STATIC)
 add_library(stm32_bsp::bsp ALIAS stm32_bsp)
@@ -62,8 +42,8 @@ PRIVATE
 
 target_link_libraries(stm32_bsp
     PRIVATE
-    stm32_bsp::compile_options
-    stm32_bsp::compile_warnings
+    stm32::compile_options
+    stm32::compile_warnings
 )
 
 target_include_directories(stm32_bsp
@@ -91,8 +71,8 @@ add_executable(stm_exe
 target_link_libraries(stm_exe
     PRIVATE
     stm32_bsp::bsp
-    stm32_bsp::compile_options
-    stm32_bsp::compile_warnings
+    stm32::compile_options
+    stm32::compile_warnings
 )
 
 

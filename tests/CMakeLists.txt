@@ -18,7 +18,10 @@ target_sources(
 target_link_libraries(unittests PRIVATE
     CppUTest
     CppUTestExt
+    stm32_example::library
 )
+
+target_compile_features(unittests INTERFACE c++_std_17)
 
 add_custom_target(
     run_unittests ALL
